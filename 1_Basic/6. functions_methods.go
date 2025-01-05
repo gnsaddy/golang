@@ -56,19 +56,30 @@ func add(a, b int) int {
 
 // or func add(a int, b int) int {}
 
-// Function Closure Example
+// Closures (Functions Returning Functions)
+// A closure is a function that "remembers" the variables from its outer
+// scope even after the outer function has finished executing.
 func makeMultiplier(factor int) func(int) int {
 	return func(x int) int {
 		return x * factor
 	}
 }
 
-// Higher-Order Function Example
+// Higher-Order Function Example - Higher-Order Functions (Functions as Arguments)
+// A function that takes another function as a parameter
 func applyOperation(a, b int, op Operation) int {
 	return op(a, b)
 }
 
-// Immediately Invoked Function (IIF)
+// Function as Return Value
+// A function can return another function
+// Function returning another function
+func adder(x int) func(int) int {
+	return func(y int) int {
+		return x + y
+	}
+}
+
 func main() {
 	// greet
 	greet()
@@ -96,11 +107,12 @@ func main() {
 	var operation Operation = add
 	fmt.Println("Addition using function as value:", operation(3, 4))
 
-	// Closure usage
+	// Closure usage - Creating reusable functions with customized behavior
 	multiplyByTwo := makeMultiplier(2)
 	fmt.Println("Multiply by 2:", multiplyByTwo(5))
 
 	// Higher-Order function usage
+	// Customizable operations, functional programming techniques.
 	result := applyOperation(5, 3, func(a, b int) int { return a * b })
 	fmt.Println("Multiplication using higher-order function:", result)
 
@@ -111,10 +123,6 @@ func main() {
 
 	// Variadic function example - Aggregation, concatenation, or processing of multiple inputs.
 	printNumbers(1, 2, 3, 4, 5)
-
-	// Method demonstration
-	point := Point{X: 3, Y: 4}
-	fmt.Println("Point Distance from Origin:", point.DistanceFromOrigin())
 
 	// Anonymous Functions (Function Without a Name)
 	// Anonymous functions are defined inline and can be assigned to variables or immediately invoked.
@@ -129,6 +137,14 @@ func main() {
 		return x * x
 	}(5) // Immediate invocation
 	fmt.Println("Square:", immediate)
+
+	// Encapsulating behavior related to a type (similar to object-oriented methods).
+	circle := Circle{radius: 5}
+	fmt.Println("Circle Area:", circle.area())
+
+	// Generating specific functions based on dynamic input.
+	addFive := adder(5)
+	fmt.Println(addFive(10)) // Output: 15
 }
 
 // Variadic Functions (Accepts Multiple Arguments)
@@ -139,12 +155,14 @@ func printNumbers(nums ...int) {
 	}
 }
 
-// Method example
-type Point struct {
-	X, Y int
+// Method example - Methods (Functions with Receivers)
+// A method is a function associated with a specific type
+// Define a struct
+type Circle struct {
+	radius float64
 }
 
-// Method to calculate distance from origin
-func (p Point) DistanceFromOrigin() float64 {
-	return float64(p.X*p.X + p.Y*p.Y)
+// Method for Circle type
+func (c Circle) area() float64 {
+	return 3.14 * c.radius * c.radius
 }
