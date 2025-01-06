@@ -23,7 +23,6 @@ Without make – The map is nil and assigning values to it results in a panic.
 With make – The map is initialized and ready to accept key-value pairs
 */
 
-
 // Use make to create and initialize a slice
 func createSlice() []int {
 	slice := make([]int, 5, 10) // Slice of length 5, capacity 10
