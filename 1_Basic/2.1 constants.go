@@ -2,6 +2,27 @@ package main
 
 import "fmt"
 
+// Constant declarations
+const (
+	Pi         = 3.14159
+	AppName    = "GoApp"
+	MaxRetries = 5
+)
+
+// Function returning constants
+func getConstant(name string) any {
+	switch name {
+	case "pi":
+		return Pi
+	case "appName":
+		return AppName
+	case "maxRetries":
+		return MaxRetries
+	default:
+		return "Unknown Constant"
+	}
+}
+
 func main() {
 	fmt.Println("Constant variables")
 	const c1 string = "circle"
@@ -27,4 +48,8 @@ func main() {
 	const d = true     //Default hidden type is bool
 	const e = 'a'      //Default hidden type is rune
 	const f = 3 + 5i   //Default hidden type is complex128
+
+	fmt.Println("Pi:", getConstant("pi"))
+	fmt.Println("App Name:", getConstant("appName"))
+	fmt.Println("Max Retries:", getConstant("maxRetries"))
 }
